@@ -106,7 +106,7 @@ unsigned int dim_speaker = 0;
 //
 
 //NTP server config
-NTPClient timeClient(ntpUDP, "0.au.pool.ntp.org", 3600 * 10, 30000); //UTC offset (+10 hrs), refresh cycle (30 mins)
+NTPClient timeClient(ntpUDP, "0.au.pool.ntp.org", 3600 * 0, 30000); //UTC offset (0 hrs), refresh cycle (30 mins)
 
 void displayText(const String &str, int16_t y, uint8_t alignment)
 {
