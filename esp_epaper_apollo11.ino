@@ -192,11 +192,48 @@ void showBootError(String err_string) {
   display.update();    
 }
 
+String padder(unsigned long in) {
+  if (in < 1) {
+    return "00";
+  }
+  if (in < 10) {
+    return "0" + String(in);
+  }
+  if (in >= 10) {
+    return String(in);
+  }
+}
+
+String missionClock() {
+  #define c_DAYS 86400
+  #define c_HOURS 3600
+  #define c_MINS 60
+  unsigned long mtime = atoi(mission_time);
+  unsigned long mclock = 0;
+  String mout = "";
+  //days
+  mclock = mtime / c_DAYS;
+  mout = padder(mclock)+ " ";
+  mtime = mtime - (mclock*c_DAYS);
+  //hours
+  mclock = mtime / c_HOURS;
+  mout = mout + padder(mclock) + " ";
+  mtime = mtime - (mclock*c_HOURS);
+  //minutes
+  mclock = mtime / c_MINS;
+  mout = mout + padder(mclock) + " ";
+  mtime = mtime - (mclock*c_MINS);
+  //seconds
+  mout = mout + padder(mtime);
+  return mout;
+}
+
 void showApollo() {
   String textMissionClock = "";
   String textNextEvent = "";
   String textEvent = "";
-  textMissionClock = "Mission Clock-T+" + String(mission_time);
+ // textMissionClock = "Mission Clock-T+" + String(mission_time);
+  textMissionClock = "T+" + missionClock();
   textNextEvent = "Next Event T+" + String(next_event_time);
   textEvent = String(speaker) + ": " + String(comms);
   display.setTextColor(GxEPD_WHITE);
